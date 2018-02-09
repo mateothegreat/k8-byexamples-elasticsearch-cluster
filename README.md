@@ -18,7 +18,7 @@
 ## Environment Variables
 
 ```sh
-NS                      ?= es
+NS                      ?= default
 SERVICE_ACCOUNT         ?= elasticsearch-service-account
 ELASTICSEARCH_HOST      ?= elasticsearch
 PORT_HTTP               ?= 9200
@@ -30,32 +30,65 @@ ES_JAVA_OPTS            ?= -Xms256m -Xmx256m
 ES_PLUGINS_INSTALL      ?= "repository-gcs,ingest-user-agent"
 ```
 
-## all targets
+## Usage
 
 ```sh
-install:    services-install master-nodes-install client-nodes-install data-nodes-install
-delete:     services-delete master-nodes-delete client-nodes-delete data-nodes-delete
-get:        service-account-get cluster-role-get cluster-role-binding-get configmap-get daemonset-get
+$ make help
+
+Usage:
+
+  make <target>
+
+Targets:
+
+  manifests            Output manifests detected (used with make install, delete, get, describe, etc)
+  install              Installs manifests to kubernetes using kubectl apply (make manifests to see what will be installed)
+  delete               Deletes manifests to kubernetes using kubectl delete (make manifests to see what will be installed)
+  get                  Retrieves manifests to kubernetes using kubectl get (make manifests to see what will be installed)
+  describe             Describes manifests to kubernetes using kubectl describe (make manifests to see what will be installed)
 ```
 
-## make install
+## Install
 
 ```sh
-yomateod@proliant:k8-byexamples-elasticsearch-cluster$ make install
+$ make install
 
-service "elasticsearch-discovery" created
-service "elasticsearch" created
+[ INSTALLING MANIFESTS/ES-CLIENT.YAML ]: deployment "es-client" created
+[ INSTALLING MANIFESTS/ES-DATA.YAML ]: deployment "es-data" created
+[ INSTALLING MANIFESTS/ES-DISCOVERY-SVC.YAML ]: service "elasticsearch-discovery" created
+[ INSTALLING MANIFESTS/ES-MASTER.YAML ]: deployment "es-master" created
+[ INSTALLING MANIFESTS/ES-SVC.YAML ]: service "elasticsearch" created
+```
 
-deployment "es-master" created
-Waiting for rollout to finish: 0 of 1 updated replicas are available...
-deployment "es-master" successfully rolled out
+## Testing
 
-deployment "es-client" created
+```sh
+$ curl http://elasticsearch:9200
+{
+  "name" : "es-client-7b775ffbd8-72264",
+  "cluster_name" : "cluster",
+  "cluster_uuid" : "HbC0w3ZOQFuSmZiVmjyovg",
+  "version" : {
+    "number" : "6.1.2",
+    "build_hash" : "5b1fea5",
+    "build_date" : "2018-01-10T02:35:59.208Z",
+    "build_snapshot" : false,
+    "lucene_version" : "7.1.0",
+    "minimum_wire_compatibility_version" : "5.6.0",
+    "minimum_index_compatibility_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
 
-Waiting for rollout to finish: 0 of 1 updated replicas are available...
-deployment "es-client" successfully rolled out
+# Delete
 
-deployment "es-data" created
-Waiting for rollout to finish: 0 of 2 updated replicas are available...
-deployment "es-data" successfully rolled out
+```sh
+ make delete
+
+[ DELETING MANIFESTS/ES-CLIENT.YAML ]: deployment "es-client" deleted
+[ DELETING MANIFESTS/ES-DATA.YAML ]: deployment "es-data" deleted
+[ DELETING MANIFESTS/ES-DISCOVERY-SVC.YAML ]: service "elasticsearch-discovery" deleted
+[ DELETING MANIFESTS/ES-MASTER.YAML ]: deployment "es-master" deleted
+[ DELETING MANIFESTS/ES-SVC.YAML ]: service "elasticsearch" deleted
 ```

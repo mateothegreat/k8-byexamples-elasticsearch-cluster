@@ -5,8 +5,9 @@
 #  \__, /\____/_/ /_/ /_/\__,_/\__/\___/\____/\__,_/
 # /____                     matthewdavis.io, holla!
 #
+include .make/Makefile.inc
 
-NS                      ?= es
+NS                      ?= default
 SERVICE_ACCOUNT         ?= elasticsearch-service-account
 ELASTICSEARCH_HOST      ?= elasticsearch
 PORT_HTTP               ?= 9200
@@ -18,9 +19,9 @@ ES_JAVA_OPTS            ?= -Xms256m -Xmx256m
 ES_PLUGINS_INSTALL      ?= "repository-gcs,ingest-user-agent"
 export
 
-install:    services-install master-nodes-install client-nodes-install data-nodes-install
-delete:     services-delete master-nodes-delete client-nodes-delete data-nodes-delete
-get:        service-account-get cluster-role-get cluster-role-binding-get configmap-get daemonset-get
+# install:    services-install master-nodes-install client-nodes-install data-nodes-install
+# delete:     services-delete master-nodes-delete client-nodes-delete data-nodes-delete
+# get:        service-account-get cluster-role-get cluster-role-binding-get configmap-get daemonset-get
 
 services-install:
 
