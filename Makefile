@@ -15,13 +15,19 @@ PORT_TRANSPORT          ?= 9300
 CLUSTER_NAME            ?= cluster
 NUMBER_OF_MASTERS       ?= 1
 NUMBER_OF_CLIENTS       ?= 1
-ES_JAVA_OPTS            ?= -Xms256m -Xmx256m
+ES_JAVA_OPTS            ?= -Xms512m -Xmx512m
 ES_PLUGINS_INSTALL      ?= "repository-gcs,ingest-user-agent"
+ES_PLUGINS_INSTALL      ?= ""
 export
 
 # install:    services-install master-nodes-install client-nodes-install data-nodes-install
 # delete:     services-delete master-nodes-delete client-nodes-delete data-nodes-delete
 # get:        service-account-get cluster-role-get cluster-role-binding-get configmap-get daemonset-get
+
+test:
+
+	curl http://elasticsearch:9200/
+	curl http://elasticsearch:9200/_cat/indices?pretty
 
 services-install:
 
@@ -90,7 +96,7 @@ configmap-get:
 
 	kubectl --namespace $(NS) get configmap
 
-#
+#  
 # Service Account
 #
 service-account-install:

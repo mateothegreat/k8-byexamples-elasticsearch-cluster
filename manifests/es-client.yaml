@@ -60,8 +60,8 @@ spec:
           httpGet:
             path: /_cluster/health
             port: http
-          initialDelaySeconds: 20
-          timeoutSeconds: 5
+          initialDelaySeconds: 120
+          timeoutSeconds: 15
         volumeMounts:
         - name: storage
           mountPath: /data

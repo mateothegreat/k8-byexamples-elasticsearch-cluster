@@ -63,11 +63,13 @@ $ make install
 ## Testing
 
 ```sh
-$ curl http://elasticsearch:9200
-{
-  "name" : "es-client-7b775ffbd8-72264",
+$ make test
+
+curl http://elasticsearch:9200/
+
+{  "name" : "es-client-77b9c8465f-lrsth",
   "cluster_name" : "cluster",
-  "cluster_uuid" : "HbC0w3ZOQFuSmZiVmjyovg",
+  "cluster_uuid" : "27_5x9EITdWQuiZ31N3shA",
   "version" : {
     "number" : "6.1.2",
     "build_hash" : "5b1fea5",
@@ -79,6 +81,11 @@ $ curl http://elasticsearch:9200
   },
   "tagline" : "You Know, for Search"
 }
+
+curl http://elasticsearch:9200/_cat/indices?pretty
+
+green open .kibana             DYwSiEEnTGmxDoGhM3R91Q 1 1    2 0 20.3kb 10.1kb
+green open logstash-2018.02.18 CBZTdN6NSleDdePt3nv1AA 5 1 3472 0  3.3mb  1.5mb
 ```
 
 # Delete
