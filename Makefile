@@ -24,10 +24,17 @@ export
 # delete:     services-delete master-nodes-delete client-nodes-delete data-nodes-delete
 # get:        service-account-get cluster-role-get cluster-role-binding-get configmap-get daemonset-get
 
+## Test installation
 test:
+
+	@echo "$(GREEN)"
+
+	nslookup elasticsearch
 
 	curl http://elasticsearch:9200/
 	curl http://elasticsearch:9200/_cat/indices?pretty
+
+	@echo "$(RESET)"
 
 services-install:
 
