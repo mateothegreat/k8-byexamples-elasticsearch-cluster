@@ -99,3 +99,7 @@ green open logstash-2018.02.18 CBZTdN6NSleDdePt3nv1AA 5 1 3472 0  3.3mb  1.5mb
 [ DELETING MANIFESTS/ES-MASTER.YAML ]: deployment "es-master" deleted
 [ DELETING MANIFESTS/ES-SVC.YAML ]: service "elasticsearch" deleted
 ```
+
+# See also
+
+* https://github.com/pires/kubernetes-elasticsearch-cluster
