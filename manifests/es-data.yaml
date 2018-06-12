@@ -6,7 +6,7 @@ metadata:
     component: elasticsearch
     role: data
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -55,9 +55,9 @@ spec:
           initialDelaySeconds: 120
           periodSeconds: 20
         volumeMounts:
-        - name: storage
+        - name: es-data
           mountPath: /data
       volumes:
-          - emptyDir:
-              medium: ""
-            name: storage
+      - name: es-data
+        persistentVolumeClaim:
+          claimName: es-data

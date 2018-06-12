@@ -54,6 +54,8 @@ spec:
         - containerPort: $PORT_TRANSPORT
           name: transport
         livenessProbe:
+          initialDelaySeconds: 120
+          timeoutSeconds: 15
           tcpSocket:
             port: transport
         volumeMounts:
