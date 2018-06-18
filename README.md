@@ -15,6 +15,15 @@
 
 > k8 by example -- straight to the point, simple execution.
 
+# Getting started
+
+Clone this repo and initialize submodules:
+
+```bash
+git clone https://github.com/mateothegreat/k8-byexamples-elasticsearch-cluster && cd $_
+git submodule update --init
+```
+
 ## Environment Variables
 
 ```sh
