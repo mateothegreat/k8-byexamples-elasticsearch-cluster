@@ -8,6 +8,7 @@
 include .make/Makefile.inc
 
 NS                      ?= default
+APP						?= elasticsearch
 SERVICE_ACCOUNT         ?= elasticsearch-service-account
 ELASTICSEARCH_HOST      ?= elasticsearch
 PORT_HTTP               ?= 9200
@@ -18,3 +19,13 @@ NUMBER_OF_CLIENTS       ?= 1
 ES_JAVA_OPTS            ?= -Xms512m -Xmx512m
 ES_PLUGINS_INSTALL      ?= "repository-gcs,ingest-user-agent"
 ES_PLUGINS_INSTALL      ?= ""
+GCE_ZONE				?= us-east1-b
+GCE_DISK				?= es-data
+
+create-disk:
+
+	gcloud compute disks create $(GCE_DISK) --zone $(GCE_ZONE) --type pd-ssd --size 100
+
+delete-disk:
+
+	gcloud compute disks delete $(GCE_DISK) --zone $(GCE_ZONE)
