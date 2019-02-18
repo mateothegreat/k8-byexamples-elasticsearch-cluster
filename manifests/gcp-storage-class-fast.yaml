@@ -4,5 +4,5 @@ metadata:
   name: fast
 provisioner: kubernetes.io/gce-pd
 parameters:
-  type: pd-fast
+  type: pd-ssd
   replication-type: none

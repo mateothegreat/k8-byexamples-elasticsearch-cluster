@@ -20,7 +20,7 @@ ES_JAVA_OPTS            ?= -Xms512m -Xmx512m
 ES_PLUGINS_INSTALL      ?= "repository-gcs,ingest-user-agent"
 ES_PLUGINS_INSTALL      ?= ""
 GCE_ZONE				?= us-east1-b
-GCE_DISK				?= es-data
+GCE_DISK				?= es-data2
 
 create-disk:
 
