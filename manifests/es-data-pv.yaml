@@ -9,6 +9,8 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: fast
-  gcePersistentDisk:
-    fsType: ext4
-    pdName: $GCE_DISK
+#  gcePersistentDisk:
+#    fsType: ext4
+#    pdName: $GCE_DISK
+  awsElasticBlockStore:
+    volumeID: $AWS_VOLUME_ID

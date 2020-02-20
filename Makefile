@@ -19,12 +19,20 @@ NUMBER_OF_CLIENTS       ?= 1
 ES_JAVA_OPTS            ?= -Xms512m -Xmx512m
 ES_PLUGINS_INSTALL      ?= "repository-gcs,ingest-user-agent"
 ES_PLUGINS_INSTALL      ?= ""
-GCE_ZONE				?= us-east1-b
-GCE_DISK				?= es-data2
+DISK_SIZE_GB            ?= 100
+AWS_ZONE                ?= us-east-1a
+AWS_VOLUME_ID           ?= vol-000f68b8a0544e05c
+GCE_ZONE				?= us-central1-a
+GCE_DISK				?= es-data-1
+ELASTICSEARCH_VERSION   ?= 7.5.2
 
-create-disk:
+create-disk-gcp:
 
-	gcloud compute disks create $(GCE_DISK) --zone $(GCE_ZONE) --type pd-ssd --size 100
+	gcloud compute disks create $(GCE_DISK) --zone $(GCE_ZONE) --type pd-standard --size 1024
+
+aws/create-disk:
+
+	aws ec2 create-volume --availability-zone=$(AWS_ZONE) --size=$(DISK_SIZE_GB) --volume-type=gp2
 
 delete-disk:
 

@@ -13,6 +13,8 @@ spec:
         component: elasticsearch
         role: client
     spec:
+#      nodeSelector:
+#        role: monitoring
       initContainers:
         - name: init-sysctl
           image: busybox:1.27.2
@@ -24,7 +26,7 @@ spec:
             privileged: true
       containers:
         - name: es-client
-          image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+          image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTICSEARCH_VERSION
           env:
             - name: NAMESPACE
               valueFrom:
@@ -48,6 +50,8 @@ spec:
               value: _site_,_lo_
             - name: ES_PLUGINS_INSTALL
               value: $ES_PLUGINS_INSTALL
+            - name: discovery.type
+              value: single-node
           ports:
             - containerPort: $PORT_HTTP
               name: http
